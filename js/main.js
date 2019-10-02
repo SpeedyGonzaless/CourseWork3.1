@@ -95,12 +95,102 @@ function drawEdges() {
       var childVertex = vertex.children[j];
       for (let k=0; k<vertexes.length; k++) {
         if (vertexes[k].id == childVertex) {
+          var a = vertexes[k].vertex.x - vertex.x;
+          var b = vertexes[k].vertex.y - vertex.y
+          var alpha = Math.acos(a / Math.sqrt(a*a + b*b));
+          var x_start, x_end, y_start, y_end;
+          if (vertex.y >= vertexes[k].vertex.y) {
+            x_start = vertex.x + 30 * Math.cos(alpha);
+            y_start = vertex.y - 30 * Math.sin(alpha)
+            x_end = vertexes[k].vertex.x - 30 * Math.cos(alpha);
+            y_end = vertexes[k].vertex.y + 30 * Math.sin(alpha);
+          } else {
+            x_start = vertex.x + 30 * Math.cos(alpha);
+            y_start = vertex.y + 30 * Math.sin(alpha)
+            x_end = vertexes[k].vertex.x - 30 * Math.cos(alpha);
+            y_end = vertexes[k].vertex.y - 30 * Math.sin(alpha);
+          }
           context.beginPath();
-          context.moveTo(vertex.x, vertex.y);
-          context.lineTo(vertexes[k].vertex.x, vertexes[k].vertex.y);
+          context.moveTo(x_start, y_start);
+          context.lineTo(x_end, y_end);
+          if (y_start >= y_end) {
+            context.lineTo(x_end + 30 * Math.sin(alpha - Math.PI * 60 / 180), y_end + 30 * Math.cos(alpha - Math.PI * 60 / 180));
+          } else {
+            context.lineTo(x_end + 30 * Math.sin(alpha - Math.PI * 60 / 180), y_end - 30 * Math.cos(alpha - Math.PI * 60 / 180));
+          }
+          context.moveTo(x_end, y_end);
+          if (y_start >= y_end) {
+            context.lineTo(x_end + 30 * Math.sin(alpha - Math.PI * 120 / 180), y_end + 30 * Math.cos(alpha - Math.PI * 120 / 180));
+          } else {
+            context.lineTo(x_end + 30 * Math.sin(alpha - Math.PI * 120 / 180), y_end - 30 * Math.cos(alpha - Math.PI * 120 / 180));
+          }
+
           context.stroke();
         }
       }
+    }
+  }
+}
+
+function drawMenu(x,y, connectVertex) {
+  context.beginPath();
+  context.rect(x - 120, y - 100, 240, 70);
+  context.rect(x - 120, y - 100, 80, 70);
+  context.rect(x - 40, y - 100, 80, 70);
+  context.font = "12pt Arial";
+  context.fillText("Соединить", x - 120, y - 75);
+  context.fillText("вершину", x - 120, y - 55);
+  context.fillText("Удалить", x - 35, y - 75);
+  context.fillText("ребро", x - 35, y - 55);
+  if (connectVertex) {
+    context.fillStyle = "green";
+    context.fillRect(x - 120, y - 100, 80, 70);
+    context.fillStyle = "black";
+    context.font = "12pt Arial";
+    context.fillText("Соединить", x - 120, y - 75);
+    context.fillText("вершину", x - 120, y - 55);
+  }
+  context.stroke();
+}
+
+function connectionVertex(e) {
+  if (settingVertex >= 0 && vertexes[settingVertex].vertex.connect && isConnectVertex(e.x,e.y) >= 0) {
+    vertexes[settingVertex].vertex.connect = false;
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    draw_fixed_vertexes();
+    drawEdges();
+    drawMenu(vertexes[settingVertex].vertex.x, vertexes[settingVertex].vertex.y, false);
+    return;
+  }
+  if (settingVertex >= 0 && vertexes[settingVertex].vertex.connect) {
+    vertexTo = connectToVertex(e.x,e.y);
+    drawMenu(vertexes[settingVertex].vertex.x, vertexes[settingVertex].vertex.y, true);
+    if (vertexTo >= 0) {
+      if (!vertexes[settingVertex].vertex.children.includes(vertexTo)) {
+        vertexes[settingVertex].vertex.children.push(vertexTo);
+        drawEdges();
+      }
+    }
+    return;
+  }
+  if (isConnectVertex(e.x,e.y) >= 0){
+    drawMenu(vertexes[settingVertex].vertex.x, vertexes[settingVertex].vertex.y, true);
+    vertexes[settingVertex].vertex.connect = true;
+    return;
+  }
+  for (let i = 0; i < vertexes.length; i++) {
+    let vertex = vertexes[i].vertex;
+    if (Math.pow(e.x - vertex.x, 2) + Math.pow(e.y - vertex.y, 2) <= 30*30) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      for (let j = 0; j < vertexes.length; j++) {
+        vertexes[j].vertex.settings = false;
+        vertexes[j].vertex.connect = false;
+      }
+      draw_fixed_vertexes();
+      drawEdges();
+      settingVertex = i;
+      vertexes[settingVertex].vertex.settings = true;
+      drawMenu(vertex.x, vertex.y, false);
     }
   }
 }
@@ -129,6 +219,7 @@ function draw(e) {
       vertex.vertex.connect = false;
     }
     if (deleteVertex) {
+
       var vertex = {
         id: deletedVertex.id,
         vertex: new Vertex(e.x, e.y, deletedVertex.vertex.id)
@@ -169,7 +260,7 @@ function stopDrawing(e) {
     deletedVertex = false;
     deleteVertex = false;
   }
-  drawEdges();
+  // drawEdges();
 }
 
 function clearCanvas() {
@@ -177,46 +268,6 @@ function clearCanvas() {
 }
 
 function showSettings(e) {
-  if (settingVertex >= 0 && vertexes[settingVertex].vertex.connect) {
-    vertexTo = connectToVertex(e.x,e.y);
-    if (vertexTo >= 0) {
-      vertexes[settingVertex].vertex.children.push(vertexTo);
-    }
-    drawEdges();
-    return;
-  }
-  if (isConnectVertex(e.x,e.y) >= 0){
-    context.beginPath();
-    context.fillStyle = "green";
-    context.fillRect(vertexes[settingVertex].vertex.x - 120, vertexes[settingVertex].vertex.y - 100, 80, 70);
-    context.fillStyle = "black";
-    context.font = "12pt Arial";
-    context.fillText("Соединить", vertexes[settingVertex].vertex.x - 120, vertexes[settingVertex].vertex.y - 75);
-    context.fillText("вершину", vertexes[settingVertex].vertex.x - 120, vertexes[settingVertex].vertex.y - 55);
-    context.stroke();
-    vertexes[settingVertex].vertex.connect = true;
-    return;
-  }
-  for (let i = 0; i < vertexes.length; i++) {
-    let vertex = vertexes[i].vertex;
-    if (Math.pow(e.x - vertex.x, 2) + Math.pow(e.y - vertex.y, 2) <= 30*30) {
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      for (let j = 0; j < vertexes.length; j++) {
-        vertexes[j].vertex.settings = false;
-        vertexes[j].vertex.connect = false;
-      }
-      draw_fixed_vertexes();
-      drawEdges();
-      settingVertex = i;
-      vertexes[settingVertex].vertex.settings = true;
-      context.beginPath();
-      context.rect(vertex.x - 120, vertex.y - 100, 240, 70);
-      context.rect(vertex.x - 120, vertex.y - 100, 80, 70);
-      context.font = "12pt Arial";
-      context.fillText("Соединить", vertex.x - 120, vertex.y - 75);
-      context.fillText("вершину", vertex.x - 120, vertex.y - 55);
-      context.stroke();
-    }
-  }
+  connectionVertex(e);
 }
 
