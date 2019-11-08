@@ -260,7 +260,13 @@ function deleteEdge(e) {
     if (vertexTo >= 0) {
       if (vertexes[settingVertex].vertex.children.includes(vertexTo)) {
         vertexes[settingVertex].vertex.children.splice(vertexes[settingVertex].vertex.children.indexOf(vertexTo), 1);
-        vertexes[vertexTo].vertex.parents.splice(vertexes[vertexTo].vertex.parents.indexOf(settingVertex),1);
+        vertexes[getVertexByID(vertexTo)].vertex.parents.splice(vertexes[getVertexByID(vertexTo)].vertex.parents.indexOf(vertexes[settingVertex].vertex.id),1);
+        clearDominator();
+        culcDominator();
+        for (let i=0; i<vertexes.length; i++){
+          if (vertexes[i].vertex.semi > -1)
+            vertexes[i].vertex.semi = vertexes[vertexes[i].vertex.semi].vertex.id;
+        }
         clearCanvas();
         draw_fixed_vertexes(vertexes[settingVertex].vertex.id);
         drawEdges();
@@ -331,10 +337,20 @@ function funcDeleteVertex(e) {
   if (isDeleteVertex(e.x,e.y) >= 0){
     for (let i = 0; i < vertexes[settingVertex].vertex.parents.length; i++){
       let v_temp = vertexes[settingVertex].vertex.parents[i];
-      vertexes[getVertexByID(v_temp)].vertex.children.splice(vertexes[getVertexByID(v_temp)].vertex.children.indexOf(settingVertex), 1);
+      vertexes[getVertexByID(v_temp)].vertex.children.splice(vertexes[getVertexByID(v_temp)].vertex.children.indexOf(vertexes[settingVertex].vertex.id), 1);
+    }
+    for (let i = 0; i< vertexes[settingVertex].vertex.children.length; i++){
+      let t = getVertexByID(vertexes[settingVertex].vertex.children[i]);
+      vertexes[getVertexByID(vertexes[settingVertex].vertex.children[i])].vertex.parents.splice( vertexes[getVertexByID(vertexes[settingVertex].vertex.children[i])].vertex.parents.indexOf(vertexes[settingVertex].vertex.id),1);
     }
     vertexes.splice(settingVertex, 1);
     settingVertex = -1;
+    clearDominator();
+    culcDominator();
+    for (let i=0; i<vertexes.length; i++){
+      if (vertexes[i].vertex.semi > -1)
+        vertexes[i].vertex.semi = vertexes[vertexes[i].vertex.semi].vertex.id;
+    }
     clearCanvas();
     draw_fixed_vertexes();
     drawEdges();
