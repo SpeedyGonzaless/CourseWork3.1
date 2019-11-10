@@ -260,6 +260,7 @@ function deleteEdge(e) {
     if (vertexTo >= 0) {
       if (vertexes[settingVertex].vertex.children.includes(vertexTo)) {
         vertexes[settingVertex].vertex.children.splice(vertexes[settingVertex].vertex.children.indexOf(vertexTo), 1);
+        vertexes[settingVertex].vertex.children.splice(vertexes[settingVertex].vertex.children.indexOf(vertexTo), 1);
         vertexes[getVertexByID(vertexTo)].vertex.parents.splice(vertexes[getVertexByID(vertexTo)].vertex.parents.indexOf(vertexes[settingVertex].vertex.id),1);
         clearDominator();
         culcDominator();
@@ -370,6 +371,7 @@ function startDrawing(e) {
 }
 
 function draw(e) {
+
   if (isDrawing) {
     if (deleteVertex) {
       moveVertex(e.x, e.y, deleteVertex);
