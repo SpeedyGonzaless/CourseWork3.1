@@ -349,7 +349,7 @@ textarea {
   position:fixed;
   right:0%;
   top:0%;
-  height: 350px;
+  height: 400px;
   width: 100px;
 }
 
@@ -366,4 +366,9 @@ input{
   text-align: center;
   text-decoration: none;
   border: 2px solid red;
+}
+
+p{
+  border: 3px solid black;
+  padding: 1px;
 }

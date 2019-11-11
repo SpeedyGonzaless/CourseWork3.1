@@ -1,3 +1,18 @@
+function infoButton() {
+  info = !info;
+  if (info){
+    document.getElementById("Info").style.backgroundColor = "red";
+    clearCanvas();
+    draw_fixed_vertexes(-1);
+    drawEdges();
+  } else {
+    document.getElementById("Info").style.backgroundColor = "#4CAF50";
+    clearCanvas();
+    draw_fixed_vertexes(-1);
+    drawEdges();
+  }
+}
+
 function addVertexButton() {
   newVertex = !newVertex;
   if (newVertex){
@@ -84,7 +99,7 @@ function changeValueButton() {
   } else {
     changeValue = false;
     document.getElementById("ChangeValue").style.backgroundColor = "#4CAF50";
-    document.getElementById("Settings").style.height = '350px';
+    document.getElementById("Settings").style.height = '400px';
     var input = document.getElementById('Input');
     var button = document.getElementById('SubmitChange');
     if (typeof(input) != 'undefined' && input != null){
@@ -139,7 +154,7 @@ function clearButtons() {
   if (changeValue){
     changeValue = false;
     document.getElementById("ChangeValue").style.backgroundColor = "#4CAF50";
-    document.getElementById("Settings").style.height = '350px';
+    document.getElementById("Settings").style.height = '400px';
     var input = document.getElementById('Input');
     var button = document.getElementById('SubmitChange');
     if (typeof(input) != 'undefined' && input != null){

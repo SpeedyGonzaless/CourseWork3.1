@@ -11,6 +11,7 @@ var deleteEdgeStarted = false;
 var moveVertexes = false;
 var moveVertexesStarted = false;
 var changeValue = false;
+var info = false;
 var IDcount =1;
 
 function Vertex(x,y, id, value){
@@ -34,10 +35,41 @@ window.onload = function() {
   draw_fixed_vertexes(-1);
   canvas.onmousemove = draw;
   canvas.onclick = action;
+
 }
 
 
 function draw_fixed_vertexes(vertexID) {
+  if (info) {
+    context.beginPath();
+    context.strokeStyle = "green";
+    context.font = "10px Arial";
+    context.arc(50,50 + document.documentElement.scrollTop,30,0,2*Math.PI);
+    context.fillText("Выбранная", 85, 40 + document.documentElement.scrollTop);
+    context.fillText("вершина", 85, 60 + document.documentElement.scrollTop);
+    context.stroke();
+    context.beginPath();
+    context.strokeStyle = "darkviolet";
+    context.font = "10px Arial";
+    context.arc(190,50 + document.documentElement.scrollTop,30,0,2*Math.PI);
+    context.fillText("Непосредственный", 225, 40 + document.documentElement.scrollTop);
+    context.fillText("доминатор", 225, 60 + document.documentElement.scrollTop);
+    context.stroke();
+    context.beginPath();
+    context.strokeStyle = "red";
+    context.font = "10px Arial";
+    context.arc(350,50 + document.documentElement.scrollTop,30,0,2*Math.PI);
+    context.fillText("Зависимая", 385, 40 + document.documentElement.scrollTop);
+    context.fillText("вершина", 385, 60 + document.documentElement.scrollTop);
+    context.stroke();
+    context.beginPath();
+    context.strokeStyle = "blue";
+    context.font = "10px Arial";
+    context.arc(500,50 + document.documentElement.scrollTop,30,0,2*Math.PI);
+    context.fillText("Доминатор", 535, 50 + document.documentElement.scrollTop);
+    context.stroke();
+  }
+  context.strokeStyle = "black";
   context.beginPath();
   for (let vertex of vertexes) {
     context.beginPath();
@@ -287,23 +319,24 @@ function action(e) {
   if (changeValue){
     settingVertex = detectVertex(x,y);
     if (settingVertex != -1) {
-      document.getElementById("Settings").style.height = '450px';
+      document.getElementById("Settings").style.height = '500px';
       var check = document.getElementById('Input');
       if (!(typeof(check) != 'undefined' && check != null)) {
         var input = document.createElement('input');
         input.type = "text";
         input.style.position = "absolute";
         input.style.left = '1px';
-        input.style.top = '353px';
+        input.style.top = '403px';
         input.style.width = '94px';
         input.style.height = '40px';
+        input.placeholder = 'Значение'
         input.setAttribute("id", "Input");
         document.getElementById("Settings").append(input);
         var button = document.createElement("button");
         button.type = "button";
         button.innerHTML = "Подтвердить";
         button.style.position = "absolute";
-        button.style.top = '400px';
+        button.style.top = '450px';
         button.style.height = '50px';
         button.style.width = '100px';
         button.style.borderColor = 'red';
@@ -315,7 +348,7 @@ function action(e) {
       draw_fixed_vertexes(settingVertex);
       drawEdges();
     } else {
-      document.getElementById("Settings").style.height = '350px';
+      document.getElementById("Settings").style.height = '400px';
       var input = document.getElementById('Input');
       var button = document.getElementById('SubmitChange');
       if (typeof(input) != 'undefined' && input != null){

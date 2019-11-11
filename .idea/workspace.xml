@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b37745c7-721c-4379-9e33-5510e6200d8e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/img/Logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/SaveAndLoad.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/SaveAndLoad.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/SettingButtons.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/SettingButtons.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
     </list>
@@ -39,6 +39,11 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ivanf\WebstormProjects\CourseWork\img" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -82,7 +87,9 @@
       <workItem from="1573124652158" duration="35494000" />
       <workItem from="1573204369619" duration="8278000" />
       <workItem from="1573391342388" duration="4055000" />
-      <workItem from="1573405403100" duration="24251000" />
+      <workItem from="1573405403100" duration="24711000" />
+      <workItem from="1573474959670" duration="232000" />
+      <workItem from="1573476362376" duration="3458000" />
     </task>
     <servers />
   </component>
@@ -110,26 +117,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/js/SaveAndLoad.js</url>
-          <line>29</line>
+          <line>25</line>
           <option name="timeStamp" value="118" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/js/main.js</url>
-          <line>269</line>
-          <properties lambdaOrdinal="-1" />
+          <line>301</line>
           <option name="timeStamp" value="130" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/js/main.js</url>
-          <line>332</line>
-          <properties lambdaOrdinal="-1" />
+          <line>365</line>
           <option name="timeStamp" value="131" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/js/main.js</url>
-          <line>117</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="138" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
