@@ -349,10 +349,21 @@ textarea {
   position:fixed;
   right:0%;
   top:0%;
-  height: 250px;
+  height: 350px;
   width: 100px;
 }
 
 button{
-  background-color: whitesmoke;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+input{
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid red;
 }

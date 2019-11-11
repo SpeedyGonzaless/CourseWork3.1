@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="" xmlns:overflow="http://www.w3.org/1999/xhtml">
+<html class="no-js" lang="">
 
 <head>
   <meta charset="utf-8">
@@ -9,7 +9,6 @@
 
   <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" href="icon.png">
-  <!-- Place favicon.ico in the root directory -->
 
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
@@ -21,18 +20,14 @@
   <div class="CanvasContainer">
     <canvas id="drawingCanvas" height="1000px" width="1920px"></canvas>
   </div>
-  <div class="Settings">
-    <button onclick="addVertex()" id="AddVertex" style="position:absolute; top:0px; height: 50px; width: 100px;">Добавить вершину</button>
-    <button id="ConnectVertexes" style="position:absolute; top:50px; height: 50px; width: 100px">Соединить вершины</button>
-    <button id="DeleteEdge" style="position:absolute; top:100px; height: 50px; width: 100px">Удалить ребра</button>
-    <button id="DeleteVertex" style="position:absolute; top:150px; height: 50px; width: 100px">Удалить вершины</button>
-    <button id="MoveVertex" style="position:absolute; top:200px; height: 50px; width: 100px">Двигать вершины</button>
-    <div></div>
-  </div>
-  <div class="Toolbar" name="test" id="test">
-    - Операции-<br>
-    <button onclick="save()">Сохранить содержимое Canvas</button>
-    <button onclick="clearCanvas()">Очистить Canvas</button>
+  <div class="Settings" id="Settings">
+    <button onclick="addVertexButton()" id="AddVertex" style="position:absolute; top:0px; height: 50px; width: 100px;">Добавить вершину</button>
+    <button onclick="connectVertexButton()" id="ConnectVertexes" style="position:absolute; top:50px; height: 50px; width: 100px">Соединить вершины</button>
+    <button onclick="deleteEdgeButton()" id="DeleteEdge" style="position:absolute; top:100px; height: 50px; width: 100px">Удалить ребра</button>
+    <button onclick="deleteVertexButton()" id="DeleteVertex" style="position:absolute; top:150px; height: 50px; width: 100px">Удалить вершины</button>
+    <button onclick="moveVertexButton()" id="MoveVertex" style="position:absolute; top:200px; height: 50px; width: 100px">Двигать вершины</button>
+    <button onclick="save()" id="SaveGraph" style="position:absolute; top:250px; height: 50px; width: 100px">Сохранить граф</button>
+    <button onclick="changeValueButton()" id="ChangeValue" style="position:absolute; top:300px; height: 50px; width: 100px">Изменить значение</button>
   </div>
   <script src="js/vendor/modernizr-3.7.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,13 +37,6 @@
   <script src="js/dominatorCalc.js"></script>
   <script src="js/SaveAndLoad.js"></script>
   <script src="js/SettingButtons.js"></script>
-
-  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-  <script>
-    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
-  </script>
-  <script src="https://www.google-analytics.com/analytics.js" async></script>
 </body>
 
 </html>

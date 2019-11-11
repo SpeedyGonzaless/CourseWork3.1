@@ -1,5 +1,4 @@
 function save() {
-  // localStorage.setItem('myStorage', JSON.stringify(vertexes));
   var exportObj = [];
   exportObj.push(IDcount);
   exportObj.push(vertexes);
@@ -14,33 +13,36 @@ function save() {
 }
 
 if (window.File && window.FileReader && window.FileList && window.Blob) {
-  // Great success!
   function handleJSONDrop(evt) {
     evt.stopPropagation();
     evt.preventDefault();
     var files = evt.dataTransfer.files;
-    // Loop through the FileList and read
     for (var i = 0, f; f = files[i]; i++) {
 
-      // Only process json files.
       if (!f.type.match('application/json')) {
         continue;
       }
 
       var reader = new FileReader();
 
-      // Closure to capture the file information.
+
       reader.onload = (function(theFile) {
         return function(e) {
           var file = JSON.parse(e.target.result);
           IDcount = file[0];
           vertexes = file[1];
           if (vertexes.length > 0) {
-            settingVertex = 0;
+            for (let vertex of vertexes){
+              var height = document.getElementById("drawingCanvas").height;
+              while (vertex.vertex.y > height - 200) {
+                document.getElementById("drawingCanvas").height = height + 200;
+                height += 200;
+              }
+            }
+            settingVertex = -1;
             clearCanvas();
-            draw_fixed_vertexes(vertexes[settingVertex].vertex.id);
+            draw_fixed_vertexes(-1);
             drawEdges();
-            drawMenu(vertexes[settingVertex].vertex.x, vertexes[settingVertex].vertex.y, false, false, false);
           }
         };
       })(f);
@@ -52,10 +54,10 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
   function handleDragOver(evt) {
     evt.stopPropagation();
     evt.preventDefault();
-    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+    evt.dataTransfer.dropEffect = 'copy';
   }
 
-  // Setup the dnd listeners.
+
   var dropZone = document.getElementsByTagName('body')[0];
   dropZone.addEventListener('dragover', handleDragOver, false);
   dropZone.addEventListener('drop', handleJSONDrop, false);
