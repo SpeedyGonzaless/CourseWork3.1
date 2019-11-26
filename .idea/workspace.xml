@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b37745c7-721c-4379-9e33-5510e6200d8e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/img/Logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/SettingButtons.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/SettingButtons.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -89,7 +85,9 @@
       <workItem from="1573391342388" duration="4055000" />
       <workItem from="1573405403100" duration="24711000" />
       <workItem from="1573474959670" duration="232000" />
-      <workItem from="1573476362376" duration="3458000" />
+      <workItem from="1573476362376" duration="3558000" />
+      <workItem from="1573888988148" duration="350000" />
+      <workItem from="1574773717048" duration="6643000" />
     </task>
     <servers />
   </component>
@@ -119,16 +117,6 @@
           <url>file://$PROJECT_DIR$/js/SaveAndLoad.js</url>
           <line>25</line>
           <option name="timeStamp" value="118" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/js/main.js</url>
-          <line>301</line>
-          <option name="timeStamp" value="130" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/js/main.js</url>
-          <line>365</line>
-          <option name="timeStamp" value="131" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

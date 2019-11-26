@@ -42,50 +42,103 @@ window.onload = function() {
 function draw_fixed_vertexes(vertexID) {
   if (info) {
     context.beginPath();
-    context.strokeStyle = "green";
-    context.font = "10px Arial";
+    context.fillStyle = "green";
     context.arc(50,50 + document.documentElement.scrollTop,30,0,2*Math.PI);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = "white";
+    context.arc(50,50 + document.documentElement.scrollTop,20,0,2*Math.PI);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = "green";
+    context.font = "10px Arial";
     context.fillText("Выбранная", 85, 40 + document.documentElement.scrollTop);
     context.fillText("вершина", 85, 60 + document.documentElement.scrollTop);
     context.stroke();
+
+
+
+
     context.beginPath();
-    context.strokeStyle = "darkviolet";
-    context.font = "10px Arial";
+    context.fillStyle = "darkviolet";
     context.arc(190,50 + document.documentElement.scrollTop,30,0,2*Math.PI);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = "white";
+    context.arc(190,50 + document.documentElement.scrollTop,20,0,2*Math.PI);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = "darkviolet";
+    context.font = "10px Arial";
     context.fillText("Непосредственный", 225, 40 + document.documentElement.scrollTop);
     context.fillText("доминатор", 225, 60 + document.documentElement.scrollTop);
     context.stroke();
+
+
+
     context.beginPath();
-    context.strokeStyle = "red";
-    context.font = "10px Arial";
+    context.fillStyle = "red";
     context.arc(350,50 + document.documentElement.scrollTop,30,0,2*Math.PI);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = "white";
+    context.arc(350,50 + document.documentElement.scrollTop,20,0,2*Math.PI);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = "red";
+    context.font = "10px Arial";
     context.fillText("Зависимая", 385, 40 + document.documentElement.scrollTop);
     context.fillText("вершина", 385, 60 + document.documentElement.scrollTop);
     context.stroke();
+
+
+
+
     context.beginPath();
-    context.strokeStyle = "blue";
-    context.font = "10px Arial";
+    context.fillStyle = "blue";
     context.arc(500,50 + document.documentElement.scrollTop,30,0,2*Math.PI);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = "white";
+    context.arc(500,50 + document.documentElement.scrollTop,20,0,2*Math.PI);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = "blue";
+    context.font = "10px Arial";
     context.fillText("Доминатор", 535, 50 + document.documentElement.scrollTop);
     context.stroke();
   }
-  context.strokeStyle = "black";
-  context.beginPath();
+  context.fillStyle = "black";
   for (let vertex of vertexes) {
     context.beginPath();
-    context.strokeStyle = "black";
+    context.fillStyle = "black";
     if (vertexID > -1 && vertex.vertex.semi == vertexID)
-      context.strokeStyle = "red";
+      context.fillStyle = "red";
     if (vertexID > -1 && vertexes[getVertexByID(vertexID)].vertex.semi == vertex.vertex.id)
-      context.strokeStyle = "darkviolet";
+      context.fillStyle = "darkviolet";
     if ((!newVertex && !connectVertex && !delEdge && !deleteVertex && !moveVertexes && !changeValue ||changeValue) && vertexID == vertex.vertex.id)
-      context.strokeStyle = "green";
+      context.fillStyle = "green";
     if (vertexID > -1 && vertexes[getVertexByID(vertexID)].vertex.domins.indexOf(vertex.vertex.id) != -1)
-      context.strokeStyle = "blue";
-
-    context.font = "20px Arial";
-    context.fillText(vertex.vertex.value, vertex.vertex.x - 5, vertex.vertex.y + 5);
+      context.fillStyle = "blue";
     context.arc(vertex.vertex.x,vertex.vertex.y,30,0,2*Math.PI);
+    context.fill();
+    context.beginPath();
+    context.fillStyle = "white";
+    context.arc(vertex.vertex.x,vertex.vertex.y,20,0,2*Math.PI);
+    context.fill();
+
+    context.beginPath();
+    context.font = "20px Arial";
+    context.fillStyle = "black";
+    context.fillText(vertex.vertex.value, vertex.vertex.x - 5, vertex.vertex.y + 5);
     context.stroke();
   }
 }
@@ -102,44 +155,76 @@ function detectVertex(x,y) {
 }
 
 function drawEdges() {
+  let angle = Math.PI / 18 * 17;
   for (let i = 0; i < vertexes.length; i++) {
     var vertex = vertexes[i].vertex;
     for (let j = 0; j < vertex.children.length; j++) {
       var childVertex = vertex.children[j];
       for (let k=0; k<vertexes.length; k++) {
         if (vertexes[k].id == childVertex) {
-          var a = vertexes[k].vertex.x - vertex.x;
-          var b = vertexes[k].vertex.y - vertex.y
+          var v1_x = vertexes[k].vertex.x;
+          var v1_y = vertexes[k].vertex.y;
+          var v2_x = vertex.x;
+          var v2_y = vertex.y;
+          var a = v1_x - v2_x;
+          var b = v1_y - v2_y;
           var alpha = Math.acos(a / Math.sqrt(a*a + b*b));
-          var x_start, x_end, y_start, y_end;
+          var x_start1, x_end1,y_start1,y_end1,x_start2, x_end2, y_start2, y_end2, x_start, y_start, x_end, y_end;
           if (vertex.y >= vertexes[k].vertex.y) {
-            x_start = vertex.x + 30 * Math.cos(alpha);
-            y_start = vertex.y - 30 * Math.sin(alpha)
-            x_end = vertexes[k].vertex.x - 30 * Math.cos(alpha);
-            y_end = vertexes[k].vertex.y + 30 * Math.sin(alpha);
+            x_start = v2_x + 30 * Math.cos(alpha);
+            y_start = v2_y - 30 * Math.sin(alpha);
+
+            x_start1 = v2_x - 30 * Math.cos(angle - alpha);
+            y_start1 = v2_y - 30 * Math.sin(angle - alpha);
+            x_start2 = v2_x - 30 * Math.cos(angle + alpha);
+            y_start2 = v2_y + 30 * Math.sin(angle + alpha);
+
+            x_end = v1_x - 30 * Math.cos(alpha);
+            y_end = v1_y + 30 * Math.sin(alpha);
+
+            x_end1 = v1_x + 50 * Math.cos(angle + alpha);
+            y_end1 = v1_y - 50 * Math.sin( angle + alpha);
+            x_end2 = v1_x + 50 * Math.cos(angle - alpha);
+            y_end2 = v1_y + 50 * Math.sin( angle - alpha);
           } else {
-            x_start = vertex.x + 30 * Math.cos(alpha);
-            y_start = vertex.y + 30 * Math.sin(alpha)
-            x_end = vertexes[k].vertex.x - 30 * Math.cos(alpha);
-            y_end = vertexes[k].vertex.y - 30 * Math.sin(alpha);
+            x_start = v2_x + 30 * Math.cos(alpha);
+            y_start = v2_y + 30 * Math.sin(alpha)
+
+            x_start1 = v2_x - 30 * Math.cos(angle - alpha);
+            y_start1 = v2_y + 30 * Math.sin(angle - alpha);
+            x_start2 = v2_x - 30 * Math.cos(angle + alpha);
+            y_start2 = v2_y - 30 * Math.sin(angle + alpha);
+
+            x_end = v1_x - 30 * Math.cos(alpha);
+            y_end = v1_y - 30 * Math.sin(alpha);
+
+            x_end1 = v1_x + 50 * Math.cos(alpha + angle);
+            y_end1 = v1_y + 50 * Math.sin(alpha + angle);
+            x_end2 = v1_x + 50 * Math.cos(alpha - angle);
+            y_end2 = v1_y + 50 * Math.sin(alpha - angle);
           }
           context.beginPath();
-          context.strokeStyle = "black";
-          context.moveTo(x_start, y_start);
-          context.lineTo(x_end, y_end);
-          if (y_start >= y_end) {
-            context.lineTo(x_end + 30 * Math.sin(alpha - Math.PI * 60 / 180), y_end + 30 * Math.cos(alpha - Math.PI * 60 / 180));
-          } else {
-            context.lineTo(x_end + 30 * Math.sin(alpha - Math.PI * 60 / 180), y_end - 30 * Math.cos(alpha - Math.PI * 60 / 180));
-          }
+          context.fillStyle = "black";
+          context.moveTo(x_start1, y_start1);
+          context.lineTo(x_end1, y_end1);
+          context.lineTo(x_end2, y_end2);
+          context.lineTo(x_start2, y_start2);
+          context.fill();
+          context.beginPath();
+          context.fillStyle = "black";
           context.moveTo(x_end, y_end);
           if (y_start >= y_end) {
-            context.lineTo(x_end + 30 * Math.sin(alpha - Math.PI * 120 / 180), y_end + 30 * Math.cos(alpha - Math.PI * 120 / 180));
+            context.lineTo(x_end + 50 * Math.sin(alpha - Math.PI * 60 / 180), y_end + 50 * Math.cos(alpha - Math.PI * 60 / 180));
           } else {
-            context.lineTo(x_end + 30 * Math.sin(alpha - Math.PI * 120 / 180), y_end - 30 * Math.cos(alpha - Math.PI * 120 / 180));
+            context.lineTo(x_end + 50 * Math.sin(alpha - Math.PI * 60 / 180), y_end - 50 * Math.cos(alpha - Math.PI * 60 / 180));
+          }
+          if (y_start >= y_end) {
+            context.lineTo(x_end + 50 * Math.sin(alpha - Math.PI * 120 / 180), y_end + 50 * Math.cos(alpha - Math.PI * 120 / 180));
+          } else {
+            context.lineTo(x_end + 50 * Math.sin(alpha - Math.PI * 120 / 180), y_end - 50 * Math.cos(alpha - Math.PI * 120 / 180));
           }
 
-          context.stroke();
+          context.fill();
         }
       }
     }
@@ -248,6 +333,11 @@ function action(e) {
       drawEdges();
       vertexConnectionStarted = false;
       connectionFinished = true;
+    } else {
+      vertexConnectionStarted = false;
+      clearCanvas();
+      draw_fixed_vertexes(-1);
+      drawEdges();
     }
   }
   if (connectVertex && !vertexConnectionStarted && !connectionFinished) {
@@ -270,6 +360,11 @@ function action(e) {
       drawEdges();
       deleteEdgeStarted = false;
       deleteEdgeFinished = true;
+    } else {
+      deleteEdgeStarted = false;
+      clearCanvas();
+      draw_fixed_vertexes(-1);
+      drawEdges();
     }
   }
   if (delEdge && !deleteEdgeStarted && !deleteEdgeFinished) {
