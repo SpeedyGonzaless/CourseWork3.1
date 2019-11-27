@@ -155,80 +155,79 @@ function detectVertex(x,y) {
 }
 
 function drawEdges() {
-  let angle = Math.PI / 18 * 17;
   for (let i = 0; i < vertexes.length; i++) {
     var vertex = vertexes[i].vertex;
     for (let j = 0; j < vertex.children.length; j++) {
       var childVertex = vertex.children[j];
       for (let k=0; k<vertexes.length; k++) {
         if (vertexes[k].id == childVertex) {
-          var v1_x = vertexes[k].vertex.x;
-          var v1_y = vertexes[k].vertex.y;
-          var v2_x = vertex.x;
-          var v2_y = vertex.y;
-          var a = v1_x - v2_x;
-          var b = v1_y - v2_y;
-          var alpha = Math.acos(a / Math.sqrt(a*a + b*b));
-          var x_start1, x_end1,y_start1,y_end1,x_start2, x_end2, y_start2, y_end2, x_start, y_start, x_end, y_end;
-          if (vertex.y >= vertexes[k].vertex.y) {
-            x_start = v2_x + 30 * Math.cos(alpha);
-            y_start = v2_y - 30 * Math.sin(alpha);
-
-            x_start1 = v2_x - 30 * Math.cos(angle - alpha);
-            y_start1 = v2_y - 30 * Math.sin(angle - alpha);
-            x_start2 = v2_x - 30 * Math.cos(angle + alpha);
-            y_start2 = v2_y + 30 * Math.sin(angle + alpha);
-
-            x_end = v1_x - 30 * Math.cos(alpha);
-            y_end = v1_y + 30 * Math.sin(alpha);
-
-            x_end1 = v1_x + 50 * Math.cos(angle + alpha);
-            y_end1 = v1_y - 50 * Math.sin( angle + alpha);
-            x_end2 = v1_x + 50 * Math.cos(angle - alpha);
-            y_end2 = v1_y + 50 * Math.sin( angle - alpha);
-          } else {
-            x_start = v2_x + 30 * Math.cos(alpha);
-            y_start = v2_y + 30 * Math.sin(alpha)
-
-            x_start1 = v2_x - 30 * Math.cos(angle - alpha);
-            y_start1 = v2_y + 30 * Math.sin(angle - alpha);
-            x_start2 = v2_x - 30 * Math.cos(angle + alpha);
-            y_start2 = v2_y - 30 * Math.sin(angle + alpha);
-
-            x_end = v1_x - 30 * Math.cos(alpha);
-            y_end = v1_y - 30 * Math.sin(alpha);
-
-            x_end1 = v1_x + 50 * Math.cos(alpha + angle);
-            y_end1 = v1_y + 50 * Math.sin(alpha + angle);
-            x_end2 = v1_x + 50 * Math.cos(alpha - angle);
-            y_end2 = v1_y + 50 * Math.sin(alpha - angle);
-          }
-          context.beginPath();
-          context.fillStyle = "black";
-          context.moveTo(x_start1, y_start1);
-          context.lineTo(x_end1, y_end1);
-          context.lineTo(x_end2, y_end2);
-          context.lineTo(x_start2, y_start2);
-          context.fill();
-          context.beginPath();
-          context.fillStyle = "black";
-          context.moveTo(x_end, y_end);
-          if (y_start >= y_end) {
-            context.lineTo(x_end + 50 * Math.sin(alpha - Math.PI * 60 / 180), y_end + 50 * Math.cos(alpha - Math.PI * 60 / 180));
-          } else {
-            context.lineTo(x_end + 50 * Math.sin(alpha - Math.PI * 60 / 180), y_end - 50 * Math.cos(alpha - Math.PI * 60 / 180));
-          }
-          if (y_start >= y_end) {
-            context.lineTo(x_end + 50 * Math.sin(alpha - Math.PI * 120 / 180), y_end + 50 * Math.cos(alpha - Math.PI * 120 / 180));
-          } else {
-            context.lineTo(x_end + 50 * Math.sin(alpha - Math.PI * 120 / 180), y_end - 50 * Math.cos(alpha - Math.PI * 120 / 180));
-          }
-
-          context.fill();
+          drawEdge(vertexes[k].vertex.x, vertexes[k].vertex.y, vertex.x, vertex.y, "black")
         }
       }
     }
   }
+}
+
+function drawEdge(v1_x, v1_y, v2_x, v2_y, color) {
+  let angle = Math.PI / 18 * 17;
+  var a = v1_x - v2_x;
+  var b = v1_y - v2_y;
+  var alpha = Math.acos(a / Math.sqrt(a*a + b*b));
+  var x_start1, x_end1,y_start1,y_end1,x_start2, x_end2, y_start2, y_end2, x_start, y_start, x_end, y_end;
+  if (v2_y >= v1_y) {
+    x_start = v2_x + 30 * Math.cos(alpha);
+    y_start = v2_y - 30 * Math.sin(alpha);
+
+    x_start1 = v2_x - 30 * Math.cos(angle - alpha);
+    y_start1 = v2_y - 30 * Math.sin(angle - alpha);
+    x_start2 = v2_x - 30 * Math.cos(angle + alpha);
+    y_start2 = v2_y + 30 * Math.sin(angle + alpha);
+
+    x_end = v1_x - 30 * Math.cos(alpha);
+    y_end = v1_y + 30 * Math.sin(alpha);
+
+    x_end1 = v1_x + 50 * Math.cos(angle + alpha);
+    y_end1 = v1_y - 50 * Math.sin( angle + alpha);
+    x_end2 = v1_x + 50 * Math.cos(angle - alpha);
+    y_end2 = v1_y + 50 * Math.sin( angle - alpha);
+  } else {
+    x_start = v2_x + 30 * Math.cos(alpha);
+    y_start = v2_y + 30 * Math.sin(alpha)
+
+    x_start1 = v2_x - 30 * Math.cos(angle - alpha);
+    y_start1 = v2_y + 30 * Math.sin(angle - alpha);
+    x_start2 = v2_x - 30 * Math.cos(angle + alpha);
+    y_start2 = v2_y - 30 * Math.sin(angle + alpha);
+
+    x_end = v1_x - 30 * Math.cos(alpha);
+    y_end = v1_y - 30 * Math.sin(alpha);
+
+    x_end1 = v1_x + 50 * Math.cos(alpha + angle);
+    y_end1 = v1_y + 50 * Math.sin(alpha + angle);
+    x_end2 = v1_x + 50 * Math.cos(alpha - angle);
+    y_end2 = v1_y + 50 * Math.sin(alpha - angle);
+  }
+  context.beginPath();
+  context.fillStyle = color;
+  context.moveTo(x_start1, y_start1);
+  context.lineTo(x_end1, y_end1);
+  context.lineTo(x_end2, y_end2);
+  context.lineTo(x_start2, y_start2);
+  context.fill();
+  context.beginPath();
+  context.fillStyle = color;
+  context.moveTo(x_end, y_end);
+  if (y_start >= y_end) {
+    context.lineTo(x_end + 50 * Math.sin(alpha - Math.PI * 60 / 180), y_end + 50 * Math.cos(alpha - Math.PI * 60 / 180));
+  } else {
+    context.lineTo(x_end + 50 * Math.sin(alpha - Math.PI * 60 / 180), y_end - 50 * Math.cos(alpha - Math.PI * 60 / 180));
+  }
+  if (y_start >= y_end) {
+    context.lineTo(x_end + 50 * Math.sin(alpha - Math.PI * 120 / 180), y_end + 50 * Math.cos(alpha - Math.PI * 120 / 180));
+  } else {
+    context.lineTo(x_end + 50 * Math.sin(alpha - Math.PI * 120 / 180), y_end - 50 * Math.cos(alpha - Math.PI * 120 / 180));
+  }
+  context.fill();
 }
 
 function draw(e) {
@@ -239,29 +238,27 @@ function draw(e) {
     draw_fixed_vertexes(-1);
     drawEdges();
     context.beginPath();
+    context.fillStyle = "black";
     context.arc(x,y,30,0,2*Math.PI);
-    context.stroke();
+    context.fill();
+    context.beginPath();
+    context.fillStyle = "white";
+    context.arc(x,y,20,0,2*Math.PI);
+    context.fill();
   }
   if (vertexConnectionStarted){
     clearCanvas();
     draw_fixed_vertexes(-1);
     drawEdges();
-    context.beginPath();
     var startVertex = vertexes[getVertexByID(settingVertex)];
-    context.moveTo(startVertex.vertex.x, startVertex.vertex.y);
-    context.lineTo(x,y);
-    context.stroke();
+    drawEdge(x,y, startVertex.vertex.x, startVertex.vertex.y, "black");
   }
   if (deleteEdgeStarted){
     clearCanvas();
     draw_fixed_vertexes(-1);
     drawEdges();
-    context.beginPath();
     var startVertex = vertexes[getVertexByID(settingVertex)];
-    context.strokeStyle = "red";
-    context.moveTo(startVertex.vertex.x, startVertex.vertex.y);
-    context.lineTo(x,y);
-    context.stroke();
+    drawEdge(x,y, startVertex.vertex.x, startVertex.vertex.y, "red");
     context.strokeStyle = "black";
   }
   if (deleteVertex){
@@ -269,9 +266,13 @@ function draw(e) {
     draw_fixed_vertexes(-1);
     drawEdges();
     context.beginPath();
-    context.strokeStyle = "red";
+    context.fillStyle = "red";
     context.arc(x,y,30,0,2*Math.PI);
-    context.stroke();
+    context.fill();
+    context.beginPath();
+    context.fillStyle = "white";
+    context.arc(x,y,20,0,2*Math.PI);
+    context.fill();
     context.strokeStyle = "black";
   }
   if (moveVertexesStarted){
