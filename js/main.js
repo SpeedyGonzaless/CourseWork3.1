@@ -136,9 +136,20 @@ function draw_fixed_vertexes(vertexID) {
     context.fill();
 
     context.beginPath();
-    context.font = "20px Arial";
     context.fillStyle = "black";
-    context.fillText(vertex.vertex.value, vertex.vertex.x - 5, vertex.vertex.y + 5);
+    if ((vertex.vertex.value + '').length == 1) {
+      context.font = "20px Arial";
+      context.fillText(vertex.vertex.value, vertex.vertex.x - 5, vertex.vertex.y + 5);
+    } else if ((vertex.vertex.value.length + '') == 2) {
+      context.font = "20px Arial";
+      context.fillText(vertex.vertex.value, vertex.vertex.x - 13, vertex.vertex.y + 5);
+    } else if ((vertex.vertex.value + '').length == 3) {
+      context.font = "15px Arial";
+      context.fillText(vertex.vertex.value, vertex.vertex.x - 15, vertex.vertex.y + 5);
+    } else {
+      context.font = "15px Arial";
+      context.fillText(vertex.vertex.value.substring(0,3) + '...', vertex.vertex.x - 19, vertex.vertex.y + 5);
+    }
     context.stroke();
   }
 }
