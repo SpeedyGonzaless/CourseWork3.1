@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b37745c7-721c-4379-9e33-5510e6200d8e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
     </list>
@@ -90,7 +91,10 @@
       <workItem from="1574773717048" duration="6689000" />
       <workItem from="1574848836818" duration="2178000" />
       <workItem from="1574855897095" duration="6000" />
-      <workItem from="1575005424079" duration="628000" />
+      <workItem from="1575005424079" duration="680000" />
+      <workItem from="1575556253486" duration="10445000" />
+      <workItem from="1575715057179" duration="182000" />
+      <workItem from="1575895903603" duration="786000" />
     </task>
     <servers />
   </component>
@@ -114,15 +118,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/js/SaveAndLoad.js</url>
-          <line>25</line>
-          <option name="timeStamp" value="118" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="JavascriptDebugType">
         <watch expression="vertexes[&quot;0&quot;]" />

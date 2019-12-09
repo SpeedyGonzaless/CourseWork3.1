@@ -155,10 +155,10 @@ function draw_fixed_vertexes(vertexID) {
 }
 
 
-function detectVertex(x,y) {
+function detectVertex(x,y,R) {
   for (let i = 0; i < vertexes.length; i++) {
     let vertex = vertexes[i];
-    if (Math.pow(x - vertex.vertex.x, 2) + Math.pow(y - vertex.vertex.y, 2) <= 30*30) {
+    if (Math.pow(x - vertex.vertex.x, 2) + Math.pow(y - vertex.vertex.y, 2) <= R*R) {
       return vertex.id;
     }
   }
@@ -262,14 +262,18 @@ function draw(e) {
     draw_fixed_vertexes(-1);
     drawEdges();
     var startVertex = vertexes[getVertexByID(settingVertex)];
-    drawEdge(x,y, startVertex.vertex.x, startVertex.vertex.y, "black");
+    if (detectVertex(x,y, 60) != startVertex.vertex.id) {
+      drawEdge(x, y, startVertex.vertex.x, startVertex.vertex.y, "black");
+    }
   }
   if (deleteEdgeStarted){
     clearCanvas();
     draw_fixed_vertexes(-1);
     drawEdges();
     var startVertex = vertexes[getVertexByID(settingVertex)];
-    drawEdge(x,y, startVertex.vertex.x, startVertex.vertex.y, "red");
+    if (detectVertex(x,y,60) != startVertex.vertex.id) {
+      drawEdge(x, y, startVertex.vertex.x, startVertex.vertex.y, "red");
+    }
     context.strokeStyle = "black";
   }
   if (deleteVertex){
@@ -336,7 +340,7 @@ function action(e) {
   }
   var connectionFinished = false;
   if (vertexConnectionStarted) {
-    var endVertex = detectVertex(x,y);
+    var endVertex = detectVertex(x,y, 30);
     if (endVertex != -1){
       vertexes[getVertexByID(settingVertex)].vertex.children.push(endVertex);
       vertexes[getVertexByID(endVertex)].vertex.parents.push(settingVertex);
@@ -353,7 +357,7 @@ function action(e) {
     }
   }
   if (connectVertex && !vertexConnectionStarted && !connectionFinished) {
-    settingVertex = detectVertex(x,y)
+    settingVertex = detectVertex(x,y, 30)
     if (settingVertex != -1){
       vertexConnectionStarted = true;
     }
@@ -361,7 +365,7 @@ function action(e) {
 
   var deleteEdgeFinished = false
   if (deleteEdgeStarted) {
-    var endVertex = detectVertex(x,y);
+    var endVertex = detectVertex(x,y, 30);
     if (endVertex != -1){
       if (vertexes[getVertexByID(settingVertex)].vertex.children.indexOf(endVertex) != -1) {
         vertexes[getVertexByID(settingVertex)].vertex.children.splice(vertexes[getVertexByID(settingVertex)].vertex.children.indexOf(endVertex), 1);
@@ -380,14 +384,14 @@ function action(e) {
     }
   }
   if (delEdge && !deleteEdgeStarted && !deleteEdgeFinished) {
-    settingVertex = detectVertex(x,y)
+    settingVertex = detectVertex(x,y, 30)
     if (settingVertex != -1){
       deleteEdgeStarted = true;
     }
   }
 
   if (deleteVertex){
-    settingVertex = detectVertex(x,y);
+    settingVertex = detectVertex(x,y, 30);
     if (settingVertex != -1) {
       for (let i=0; i<vertexes[getVertexByID(settingVertex)].vertex.children.length; i++){
         var index = getVertexByID(vertexes[getVertexByID(settingVertex)].vertex.children[i]);
@@ -417,14 +421,14 @@ function action(e) {
     }
   }
   if (moveVertexes && !moveVertexFinished){
-    settingVertex = detectVertex(x,y);
+    settingVertex = detectVertex(x,y, 30);
     if (settingVertex != -1 && !moveVertexFinished){
       moveVertexesStarted = true;
     }
   }
 
   if (changeValue){
-    settingVertex = detectVertex(x,y);
+    settingVertex = detectVertex(x,y, 30);
     if (settingVertex != -1) {
       document.getElementById("Settings").style.height = '500px';
       var check = document.getElementById('Input');
@@ -469,7 +473,7 @@ function action(e) {
   }
 
   if (!newVertex && !connectVertex && !delEdge && !deleteVertex && !moveVertexes && !changeValue){
-    settingVertex = detectVertex(x,y);
+    settingVertex = detectVertex(x,y,30);
     if (settingVertex != -1) {
       clearDominator();
       culcDominator();
